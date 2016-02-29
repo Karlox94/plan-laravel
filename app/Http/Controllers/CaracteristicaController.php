@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Plan\Http\Requests;
 use Plan\Http\Controllers\Controller;
 
-class PlanController extends Controller
+class CaracteristicaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,7 @@ class PlanController extends Controller
      */
     public function index()
     {
-        return view('admin.index');
+        //
     }
 
     /**
@@ -26,7 +26,7 @@ class PlanController extends Controller
      */
     public function create()
     {
-        return view('plan.crearPlan');
+        return view('caracteristica.addCaracteristica');
     }
 
     /**
