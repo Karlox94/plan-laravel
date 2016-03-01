@@ -18,6 +18,9 @@ Route::get('/', function () {
 Route::resource('plan','PlanController');
 Route::resource('caracteristica','CaracteristicaController');
 Route::resource('lineamiento','LineamientoController');
+Route::resource('usuario','UsuarioController');
+Route::resource('proceso','ProcesoController');
+Route::resource('facultad','FacultadController');
 
 /*
 |--------------------------------------------------------------------------

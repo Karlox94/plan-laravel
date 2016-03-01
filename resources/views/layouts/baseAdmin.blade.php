@@ -43,7 +43,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-star"></i> Administrador <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="{{url('usuario')}}"><i class="fa fa-fw fa-user"></i> Cuenta</a>
+                            <a href="{{url('cuenta')}}"><i class="fa fa-fw fa-user"></i> Cuenta</a>
                         </li>                        
                         <li class="divider"></li>
                         <li>
@@ -56,16 +56,16 @@
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                 	<li>
-                        <a href="{{url('admin/plan')}}"><i class="fa fa-fw fa-arrow-right"></i> Planes</a>
+                        <a href="{{url('plan')}}"><i class="fa fa-fw fa-arrow-right"></i> Planes</a>
                     </li>
                     <li>
-                        <a href="{{url('admin/facultad')}}"><i class="fa fa-fw fa-arrow-right"></i> Facultades</a>
+                        <a href="{{url('facultad')}}"><i class="fa fa-fw fa-arrow-right"></i> Facultades</a>
                     </li>
                     <li>
-                        <a href="{{url('admin/proceso')}}"><i class="fa fa-fw fa-arrow-right"></i> Procesos</a>
+                        <a href="{{url('proceso')}}"><i class="fa fa-fw fa-arrow-right"></i> Procesos</a>
                     </li>
                     <li>
-                        <a href="{{url('admin/usuario')}}"><i class="fa fa-fw fa-arrow-right"></i> Usuarios</a>
+                        <a href="{{url('usuario')}}"><i class="fa fa-fw fa-arrow-right"></i> Usuarios</a>
                     </li>
                     <li>
                         <a href="{{url('lineamiento')}}"><i class="fa fa-fw fa-arrow-right"></i> Lineamientos</a>

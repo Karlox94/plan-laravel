@@ -105,41 +105,41 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-12 form-group">
                         <label for="actividad">Actividad</label>
                         <textarea class="form-control" id="actividad" rows="5" placeholder="¿Qué Hacer para eliminar la Causa Raíz y dar solución al problema?"></textarea> 
                     </div> 
-                    <div class="col-md-6">
+                    <div class="col-md-6 form-group">
                         <label for="meta">Meta</label>
                         <input type="text" name="meta" class="form-control" id="meta" placeholder="Resultado cuantitativo que se pretende alcanzar">                                      
                     </div>  
-                    <div class="col-md-6">                      
+                    <div class="col-md-6 form-group">                      
                         <label for="indicador">Indicador</label>
                         <input type="text" name="indicador" class="form-control" id="indicador" placeholder="Permite medir el logro de la Meta">  
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6 form-group">
                         <label for="fechaInicio">Fecha inicio de ejecución</label>
                         <input type="date" name="fechaInicio" class="form-control" id="fechaIncio">
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6 form-group">
                         <label for="fechaFinal">Fecha final de ejecución</label>
                         <input type="date" name="fechaFinal" class="form-control" id="fechaFinal">
                     </div>
-                    <div class="col-md-12  checkbox">
+                    <div class="col-md-12  checkbox form-group">
                         <label>
                             <input type="checkbox" value="" id="validarRecursos" onchange="mostrarRecursos();">
                             Recusos
                         </label>
                     </div>
                     <div class="recursos" id="recursos">
-                        <div class="col-md-12">                                    
+                        <div class="col-md-12 form-group">                                    
                             <h4 for="recursos" class="text-center">Descripción de los recursos</h4>
                         </div>
-                        <div class="col-md-6">  
+                        <div class="col-md-6 form-group">  
                             <label for="personal">Personal</label>                                  
                             <input type="text" name="personal" class="form-control" id="personal">
                         </div> 
-                        <div class="col-md-3">                   
+                        <div class="col-md-3 form-group">                   
                             <label for="fuente">Fuente</label>                                  
                             <select class="form-control" id="fuenteP" name="fuenteP">
                                 <option selected="selected" value="">Seleccione una opción</option>
@@ -147,15 +147,15 @@
                                 <option value="externa">Externa</option>
                             </select>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3 form-group">
                             <label for="total">Total</label>                                  
                             <input type="text" name="totalP" class="form-control" id="totalP" placeholder="Costo ($)">
                         </div>
-                        <div class="col-md-6">  
+                        <div class="col-md-6 form-group">  
                             <label for="equipo">Equipo</label>                                  
                             <input type="text" name="equipo" class="form-control" id="equipo">
                         </div> 
-                        <div class="col-md-3">                   
+                        <div class="col-md-3 form-group">                   
                             <label for="fuente">Fuente</label>                                  
                             <select class="form-control" id="fuenteE" name="fuenteE">
                                 <option selected="selected" value="">Seleccione una opción</option>
@@ -163,15 +163,15 @@
                                 <option value="externa">Externa</option>
                             </select>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3 form-group">
                             <label for="total">Total</label>                                  
                             <input type="text" name="totalE" class="form-control" id="totalE" placeholder="Costo ($)">
                         </div>                                
-                        <div class="col-md-6">  
+                        <div class="col-md-6 form-group">  
                             <label for="materiales">Materiales e Insumos</label>                                  
                             <input type="text" name="personal" class="form-control" id="personal">
                         </div> 
-                        <div class="col-md-3">                   
+                        <div class="col-md-3 form-group">                   
                             <label for="fuente">Fuente</label>                                  
                             <select class="form-control" id="fuenteM" name="fuentem">
                                 <option selected="selected" value="">Seleccione una opción</option>
@@ -179,15 +179,15 @@
                                 <option value="externa">Externa</option>
                             </select>
                         </div>
-                        <div class="col-md-3">
-                            <label for="total">Total</label>                                  
+                        <div class="col-md-3 form-group">
+                            <label for="total form-group">Total</label>                                  
                             <input type="text" name="totalM" class="form-control" id="totalM" placeholder="Costo ($)">
                         </div>                                
-                        <div class="col-md-6">  
+                        <div class="col-md-6 form-group">  
                             <label for="servicio">Servicio técnico</label>                                  
                             <input type="text" name="servicio" class="form-control" id="servicio">
                         </div> 
-                        <div class="col-md-3">                   
+                        <div class="col-md-3 form-group">                   
                             <label for="fuente">Fuente</label>                                  
                             <select class="form-control" id="fuenteS" name="fuenteS">
                                 <option selected="selected" value="">Seleccione una opción</option>
@@ -195,15 +195,15 @@
                                 <option value="externa">Externa</option>
                             </select>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3 form-group">
                             <label for="total">Total</label>                                  
                             <input type="text" name="totalP" class="form-control" id="totalS" placeholder="Costo ($)">
                         </div>
-                        <div class="col-md-6">  
+                        <div class="col-md-6 form-group">  
                             <label for="infra">Infraestructura</label>                                  
                             <input type="text" name="infra" class="form-control" id="infra">
                         </div> 
-                        <div class="col-md-3">                   
+                        <div class="col-md-3 form-group">                   
                             <label for="fuente">Fuente</label>                                  
                             <select class="form-control" id="fuenteI" name="fuenteI">
                                 <option selected="selected" value="">Seleccione una opción</option>
@@ -211,15 +211,15 @@
                                 <option value="externa">Externa</option>
                             </select>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3 form-group">
                             <label for="total">Total</label>                                  
                             <input type="text" name="totalI" class="form-control" id="totalI" placeholder="Costo ($)">
                         </div>
-                        <div class="col-md-6">  
+                        <div class="col-md-6 form-group">  
                             <label for="admin">Administración</label>                                  
                             <input type="text" name="admin" class="form-control" id="admin">
                         </div> 
-                        <div class="col-md-3">                   
+                        <div class="col-md-3 form-group">                   
                             <label for="fuente">Fuente</label>                                  
                             <select class="form-control" id="fuenteAd" name="fuenteAd">
                                 <option selected="selected" value="">Seleccione una opción</option>
@@ -227,13 +227,13 @@
                                 <option value="externa">Externa</option>
                             </select>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3 form-group">
                             <label for="total">Total</label>                                  
                             <input type="text" name="totalAd" class="form-control" id="totalAd" placeholder="Costo ($)">
                         </div>
                     </div>
 
-                    <div class="col-md-6 col-md-offset-3">                   
+                    <div class="col-md-6 col-md-offset-3 form-group">                   
                         <label for="responsable">Responsable</label>                                  
                         <select class="form-control" id="responsable" name="responsable">
                             <option selected="selected" value="">Seleccione una opción</option>
@@ -253,5 +253,17 @@
     </div> <!-- /.modal-dialog -->
 </div> <!-- /.modal -->
 
+<script type="text/javascript">
+        function mostrarRecursos() {
+            element = document.getElementById("recursos");
+            check = document.getElementById("validarRecursos");
+            if (check.checked) {
+                element.style.display='block';
+            }
+            else {
+                element.style.display='none';
+            }
+        }
+    </script>
 
 @stop
