@@ -9,8 +9,6 @@ class Caracteristica extends Model
     protected $table = 'caracteristica';
     protected $fillable = ['descripcion', 'factor_id'];
 
-    public $timestamps = false;
-
     public function factor()
     {
         return $this->belongsTo('Plan\Factor');

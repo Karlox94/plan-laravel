@@ -10,8 +10,6 @@ class NoConformidad extends Model
     protected $fillable = ['descripcion', 'origen', 'tipoAccion', 'causaRaiz', 'metodologia',
     		'plan_id'];
 
-    public $timestamps = false;
-
     public function plan()
     {
         return $this->belongsTo('Plan\Plan');

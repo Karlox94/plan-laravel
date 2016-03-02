@@ -9,8 +9,6 @@ class Factor extends Model
     protected $table = 'factor';
     protected $fillable = ['descripcion', 'lineamiento_id'];   
 
-    public $timestamps = false;
-
     public function lineamiento()
     {
         return $this->belongsTo('Plan\Lineamiento');

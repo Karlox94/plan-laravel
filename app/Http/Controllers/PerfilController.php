@@ -5,11 +5,11 @@ namespace Plan\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Plan\Http\Requests;
-use Plan\Http\Controllers\Controller;
-use Plan\Usuario;
+
 use Plan\Perfil;
 
-class UsuarioController extends Controller
+
+class PerfilController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +18,7 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        $perfiles = Perfil::all();
-        return view('admin.usuario.index', compact('perfiles'));
+        //
     }
 
     /**
@@ -40,7 +39,15 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
-        return 'aqui se creara un usuario';
+        $perfilExist = Perfil::where('rol',$request->rol)->first();
+        if($perfilExist) {    
+            return redirect('/usuario')->with('message', 'error');
+        } else {
+            $perfil = new Perfil;
+            $perfil->rol = $request->rol;
+            $perfil->save();
+            return redirect('/usuario')->with('message', 'ok');
+        }          
     }
 
     /**
@@ -62,7 +69,8 @@ class UsuarioController extends Controller
      */
     public function edit($id)
     {
-        //
+        $perfil = Perfil::find($id);
+        return view('admin.perfil.editar', compact('perfil'));
     }
 
     /**
@@ -74,7 +82,11 @@ class UsuarioController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $perfil = Perfil::find($id);
+        $perfil->fill($request->all());
+        $perfil->save();
+
+        return redirect('/usuario')->with('message','editado');
     }
 
     /**
@@ -85,6 +97,7 @@ class UsuarioController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Perfil::destroy($id);
+        return redirect('/usuario')->with('message','eliminado');
     }
 }

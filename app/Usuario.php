@@ -9,8 +9,6 @@ class Usuario extends Model
     protected $table = 'usuario';
     protected $fillable = ['cedula', 'nombre', 'apellido', 'email'];
 
-    public $timestamps = false;
-
     public function plan()
     {
         return $this->hasMany('Plan\Plan');

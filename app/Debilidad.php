@@ -10,8 +10,6 @@ class Debilidad extends Model
     protected $fillable = ['descripcion', 'origen', 'tipoAccion', 'causaRaiz', 'metodologia',
     	'caracteristica_id', 'plan_id'];
 
-    public $timestamps = false;
-
     public function caracteristica()
     {
         return $this->belongsTo('Plan\Caracteristica');

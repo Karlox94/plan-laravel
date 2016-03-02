@@ -15,12 +15,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('plan','PlanController');
-Route::resource('caracteristica','CaracteristicaController');
-Route::resource('lineamiento','LineamientoController');
-Route::resource('usuario','UsuarioController');
-Route::resource('proceso','ProcesoController');
-Route::resource('facultad','FacultadController');
 
 /*
 |--------------------------------------------------------------------------
@@ -34,5 +28,11 @@ Route::resource('facultad','FacultadController');
 */
 
 Route::group(['middleware' => ['web']], function () {
-    //
+	Route::resource('plan','PlanController');
+	Route::resource('caracteristica','CaracteristicaController');
+	Route::resource('lineamiento','LineamientoController');
+	Route::resource('perfil','PerfilController');
+	Route::resource('usuario','UsuarioController');
+	Route::resource('proceso','ProcesoController');
+	Route::resource('facultad','FacultadController');
 });

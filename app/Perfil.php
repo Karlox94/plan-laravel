@@ -9,5 +9,4 @@ class Perfil extends Model
     protected $table = 'perfil';
     protected $fillable = ['rol'];
 
-    public $timestamps = false;
 }

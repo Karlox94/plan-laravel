@@ -4,6 +4,29 @@
 
 @section('contenido')
 
+
+@if (session('message') == 'ok')
+  <div class="alert alert-success alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>En hora buena!</strong> Registro exitoso.
+  </div>
+@elseif (session('message') == 'error')
+  <div class="alert alert-danger alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>Ups!</strong> El perfil ya esta registrado, intenta con otro nombre.
+  </div>
+@elseif (session('message') == 'editado')
+  <div class="alert alert-info alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>En hora buena!</strong> El perfil se ha modifcado correctamente.
+  </div>
+@elseif (session('message') == 'eliminado')
+  <div class="alert alert-info alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>En hora buena!</strong> El perfil se ha eliminado correctamente.
+  </div>
+@endif
+
 <!-- Page Heading -->
 <div class="row">
     <div class="col-lg-12">
@@ -11,16 +34,20 @@
             Perfiles
         </h1>                        
     </div>
-    <div class="col-md-4 form-group">
-        <label for="rol">Rol</label>
-        <input type="text" name="rol" class="form-control" id="rol" placeholder="Rol">
-    </div>
-    <div class="col-md-2 form-group">
-      <br>
-      <a href="" class="btn btn-success form-control">
-        <span class="glyphicon glyphicon-plus"></span> Crear
-      </a>      
-    </div>
+
+
+    {!! Form::open(['route'=>'perfil.store', 'method'=>'POST']) !!}
+      {{ csrf_field()}}
+      <div class="col-md-4 form-group">
+        {{Form::label('Rol:')}}
+        {{Form::text('rol',null,['class' => 'form-control', 'required' => 'required'])}}
+      </div>
+      <div class="col-md-2 form-group">
+        <br>
+        {{Form::submit('Crear',['class' => 'btn btn-success form-control'])}}
+      </div>
+    {!! Form::close() !!}     
+    
     <div class="col-md-12"> 
       <h3>Perfiles registrados</h3>
       <table class="table table-bordered">
@@ -33,9 +60,21 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td colspan="4"><center><h1 class="text-muted">No hay perfiles aún</h1></center></td>
-            </tr>
+            @foreach ($perfiles as $perfil) 
+              <tr>
+                <td>{{$perfil->id}}</td>
+                <td>{{$perfil->rol}}</td>
+                <td>
+                  {!!link_to_route('perfil.edit', $title = 'Modificar', $parameters = $perfil->id, $attributes = ['class'=>'btn btn-primary'])!!}
+                </td>
+                <td>
+                  {!! Form::open(['route'=>['perfil.destroy',$perfil->id],'method'=>'DELETE']) !!}
+                    {{ csrf_field()}}  
+                      {{Form::submit('Eliminar',['class' => 'btn btn-danger'])}}
+                  {!! Form::close() !!}
+                </td>
+              </tr>   
+            @endforeach
           </tbody>
       </table>
       <hr>  

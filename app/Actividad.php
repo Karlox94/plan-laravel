@@ -11,8 +11,6 @@ class Actividad extends Model
         	'responsable', 'porcentaje', 'estadoAccion', 'observacion', 'noConformidad_id',
         	'debilidad_id', 'usuario_id'];
 
-    public $timestamps = false;
-
     public function noConformidad()
     {
         return $this->belongsTo('Plan\NoConformidad');

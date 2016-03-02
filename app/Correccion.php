@@ -10,8 +10,6 @@ class Correccion extends Model
     protected $fillable = ['descripcion', 'fechaEjecucion', 'responsable', 'noConformidad_id',
     		'usuario_id'];
 
-    public $timestamps = false;
-
     public function noConformidad()
     {
         return $this->belongsTo('Plan\NoConformidad');

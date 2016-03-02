@@ -9,8 +9,6 @@ class Dependencia extends Model
     protected $table = 'dependencia';
     protected $fillable = ['nombre', 'proceso_id'];
 
-    public $timestamps = false;
-
     public function proceso()
     {
         return $this->belongsTo('Plan\Proceso');

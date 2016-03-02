@@ -9,5 +9,4 @@ class AsignarDependencia extends Model
     protected $table = 'asignarDependencia';
     protected $fillable = ['usuario_id', 'dependencia_id'];
 
-    public $timestamps = false;
 }
