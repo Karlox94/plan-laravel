@@ -5,11 +5,11 @@ namespace Plan\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Plan\Http\Requests;
-use Plan\Http\Controllers\Controller;
 
-use Plan\Lineamiento;
+use Plan\Facultad;
+use Plan\Programa;
 
-class LineamientoController extends Controller
+class ProgramaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +18,9 @@ class LineamientoController extends Controller
      */
     public function index()
     {
-        $lineamientos = Lineamiento::all();
-        return view('admin.lineamiento.index', compact('lineamientos'));
+        $programas = Programa::all();
+        $facultades2 = Facultad::lists('nombre','id');
+        return view('admin.facultad.programa.index', compact('facultades2','programas'));
     }
 
     /**
@@ -40,14 +41,15 @@ class LineamientoController extends Controller
      */
     public function store(Request $request)
     {
-        $linlExist = Lineamiento::where('descripcion',$request->descripcion)->first();
-        if($linlExist) {    
-            return redirect('/lineamiento')->with('message', 'error');
+        $programaExist = Programa::where('nombre',$request->nombre)->first();
+        if($programaExist) {    
+            return redirect('/programa')->with('message', 'error');
         } else {
-            $lineamiento = new lineamiento;
-            $lineamiento->descripcion = $request->descripcion;
-            $lineamiento->save();
-            return redirect('/lineamiento')->with('message', 'ok');
+            $programa = new Programa;
+            $programa->nombre = $request->nombre;
+            $programa->facultad_id = $request->facultad;
+            $programa->save();
+            return redirect('/programa')->with('message', 'ok');
         }
     }
 
@@ -70,8 +72,14 @@ class LineamientoController extends Controller
      */
     public function edit($id)
     {
-        $lineamiento = Lineamiento::find($id);
-        return view('admin.lineamiento.editar', compact('lineamiento'));
+        $programa = Programa::where('id', $id)->first();
+        $facultadprograma = $programa->facultad->nombre;
+        $facultades = Facultad::where('nombre','<>', $facultadprograma)->get();
+        $afacultades = array();
+        foreach ($facultades as $key) {
+            $afacultades[$key->id] = $key->nombre;
+        }
+        return view('admin.facultad.programa.editar', compact('programa', 'afacultades'));
     }
 
     /**
@@ -83,11 +91,11 @@ class LineamientoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $lineamiento = Lineamiento::find($id);
-        $lineamiento->fill($request->all());
-        $lineamiento->save();
+        $programa = Programa::find($id);
+        $programa->fill($request->all());
+        $programa->save();
 
-        return redirect('/lineamiento')->with('message','editado');
+        return redirect('/programa')->with('message','editado');
     }
 
     /**
@@ -98,7 +106,7 @@ class LineamientoController extends Controller
      */
     public function destroy($id)
     {
-        Lineamiento::destroy($id);
-        return redirect('/lineamiento')->with('message','eliminado');
+        Programa::destroy($id);
+        return redirect('/programa')->with('message','eliminado');
     }
 }

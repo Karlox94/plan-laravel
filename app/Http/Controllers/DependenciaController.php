@@ -5,11 +5,11 @@ namespace Plan\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Plan\Http\Requests;
-use Plan\Http\Controllers\Controller;
 
-use Plan\Lineamiento;
+use Plan\Dependencia;
+use Plan\Proceso;
 
-class LineamientoController extends Controller
+class DependenciaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +18,10 @@ class LineamientoController extends Controller
      */
     public function index()
     {
-        $lineamientos = Lineamiento::all();
-        return view('admin.lineamiento.index', compact('lineamientos'));
+        $dependencias = Dependencia::all();
+        $procesos2 = Proceso::lists('nombre','id');
+                
+        return view('admin.proceso.dependencia.index', compact('procesos2','dependencias'));
     }
 
     /**
@@ -40,14 +42,15 @@ class LineamientoController extends Controller
      */
     public function store(Request $request)
     {
-        $linlExist = Lineamiento::where('descripcion',$request->descripcion)->first();
-        if($linlExist) {    
-            return redirect('/lineamiento')->with('message', 'error');
+        $dependenciaExist = Dependencia::where('nombre',$request->nombre)->first();
+        if($dependenciaExist) {    
+            return redirect('/dependencia')->with('message', 'error');
         } else {
-            $lineamiento = new lineamiento;
-            $lineamiento->descripcion = $request->descripcion;
-            $lineamiento->save();
-            return redirect('/lineamiento')->with('message', 'ok');
+            $dependencia = new Dependencia;
+            $dependencia->nombre = $request->nombre;
+            $dependencia->proceso_id = $request->proceso;
+            $dependencia->save();
+            return redirect('/dependencia')->with('message', 'ok');
         }
     }
 
@@ -70,8 +73,14 @@ class LineamientoController extends Controller
      */
     public function edit($id)
     {
-        $lineamiento = Lineamiento::find($id);
-        return view('admin.lineamiento.editar', compact('lineamiento'));
+        $dependencia = Dependencia::where('id', $id)->first();
+        $procesodependencia = $dependencia->proceso->nombre;
+        $procesos = Proceso::where('nombre','<>', $procesodependencia)->get();
+        $aprocesos = array();
+        foreach ($procesos as $key) {
+            $aprocesos[$key->id] = $key->nombre;
+        }
+        return view('admin.proceso.dependencia.editar', compact('dependencia', 'aprocesos'));
     }
 
     /**
@@ -83,11 +92,11 @@ class LineamientoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $lineamiento = Lineamiento::find($id);
-        $lineamiento->fill($request->all());
-        $lineamiento->save();
+        $dependencia = Dependencia::find($id);
+        $dependencia->fill($request->all());
+        $dependencia->save();
 
-        return redirect('/lineamiento')->with('message','editado');
+        return redirect('/dependencia')->with('message','editado');
     }
 
     /**
@@ -98,7 +107,7 @@ class LineamientoController extends Controller
      */
     public function destroy($id)
     {
-        Lineamiento::destroy($id);
-        return redirect('/lineamiento')->with('message','eliminado');
+        Dependencia::destroy($id);
+        return redirect('/dependencia')->with('message','eliminado');
     }
 }

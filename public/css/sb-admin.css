@@ -118,7 +118,6 @@ ul.alert-dropdown {
     width: 200px;
 }
 .side-nav li a {    
-    border-bottom: 1px solid gray;
     color: #fff !important;
     position: relative;
 }

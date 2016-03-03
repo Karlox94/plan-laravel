@@ -18,7 +18,8 @@ class PerfilController extends Controller
      */
     public function index()
     {
-        //
+        $perfiles = Perfil::all();
+        return view('admin.perfil.index', compact('perfiles'));
     }
 
     /**
@@ -41,12 +42,12 @@ class PerfilController extends Controller
     {
         $perfilExist = Perfil::where('rol',$request->rol)->first();
         if($perfilExist) {    
-            return redirect('/usuario')->with('message', 'error');
+            return redirect('/perfil')->with('message', 'error');
         } else {
             $perfil = new Perfil;
             $perfil->rol = $request->rol;
             $perfil->save();
-            return redirect('/usuario')->with('message', 'ok');
+            return redirect('/perfil')->with('message', 'ok');
         }          
     }
 
@@ -86,7 +87,7 @@ class PerfilController extends Controller
         $perfil->fill($request->all());
         $perfil->save();
 
-        return redirect('/usuario')->with('message','editado');
+        return redirect('/perfil')->with('message','editado');
     }
 
     /**
@@ -98,6 +99,6 @@ class PerfilController extends Controller
     public function destroy($id)
     {
         Perfil::destroy($id);
-        return redirect('/usuario')->with('message','eliminado');
+        return redirect('/perfil')->with('message','eliminado');
     }
 }

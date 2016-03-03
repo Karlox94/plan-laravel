@@ -1,24 +1,26 @@
 @extends('layouts.baseAdmin')
 
-@section('titulo','Facultades')
+@section('titulo','Programas')
 
 @section('contenido')
 
 @include('admin.alert')
 
-<!-- Page Heading -->
 <div class="row">
-    <div class="col-lg-12">
-        <h1 class="page-header" id="facultad">
-            Facultades
+    <div class="col-lg-12" id="programa">
+        <h1 class="page-header">
+            Programas Académicos
         </h1>                        
     </div>
-
-    {!! Form::open(['route'=>'facultad.store', 'method'=>'POST']) !!}
+    {!! Form::open(['route'=>'programa.store', 'method'=>'POST']) !!}
       {{ csrf_field()}}
       <div class="col-md-4 form-group">
-        {{Form::label('Nombre de la facultad:')}}
+        {{Form::label('Nombre del programa:')}}
         {{Form::text('nombre',null,['class' => 'form-control', 'required' => 'required'])}}
+      </div>
+      <div class="col-md-4 form-group">   
+        {{Form::label('Facultad a la que pertenece:')}}   
+        {{Form::select('facultad', $facultades2, null, ['class' => 'form-control','placeholder' => 'Selecciones una opción', 'required' => 'required'])}}
       </div>
       <div class="col-md-2 form-group">
         <br>
@@ -27,26 +29,28 @@
     {!! Form::close() !!}     
     
     <div class="col-md-12"> 
-      <h3>Facultades registradass</h3>
+      <h3>Programas Académicos registrados</h3>
       <table class="table table-bordered">
           <thead>
             <tr>
                 <td>Id</td>
-                <td>Facultad</td>
+                <td>Nombre Programa</td>
+                <td>Facultad a la que pertenece</td>
                 <td>Modificar</td>
                 <td>Eliminar</td>
             </tr>
           </thead>
           <tbody>
-            @foreach ($facultades as $facultad)
+            @foreach ($programas as $programa)
               <tr>
-                <td>{{$facultad->id}}</td>
-                <td>{{$facultad->nombre}}</td>
+                <td>{{$programa->id}}</td>
+                <td>{{$programa->nombre}}</td>
+                <td>{{$programa->facultad->nombre}}</td>
                 <td>
-                  {!!link_to_route('facultad.edit', $title = 'Modificar', $parameters = $facultad->id, $attributes = ['class'=>'btn btn-primary'])!!}
+                  {!!link_to_route('programa.edit', $title = 'Modificar', $parameters = $programa->id, $attributes = ['class'=>'btn btn-primary'])!!}
                 </td>
                 <td>
-                  {!! Form::open(['route'=>['facultad.destroy',$facultad->id],'method'=>'DELETE']) !!}
+                  {!! Form::open(['route'=>['programa.destroy',$programa->id],'method'=>'DELETE']) !!}
                     {{ csrf_field()}}  
                       {{Form::submit('Eliminar',['class' => 'btn btn-danger'])}}
                   {!! Form::close() !!}
@@ -59,8 +63,4 @@
     </div> 
 </div>
 
-
-
 @stop
-
-

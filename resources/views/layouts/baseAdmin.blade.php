@@ -59,16 +59,51 @@
                         <a href="{{url('plan')}}"><i class="fa fa-fw fa-arrow-right"></i> Planes</a>
                     </li>
                     <li>
-                        <a href="{{url('facultad')}}"><i class="fa fa-fw fa-arrow-right"></i> Facultades</a>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#menuFacultad"><i class="fa fa-fw fa-arrow-right"></i> Facultades <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="menuFacultad" class="collapse">
+                            <li>
+                                <a href="/facultad"><i class="fa fa-fw fa-edit"></i>  Facultades</a>
+                            </li>
+                            <li>
+                                <a href="/programa"><i class="fa fa-fw fa-edit"></i>  Programas Académicos</a>
+                            </li>                            
+                        </ul>
                     </li>
                     <li>
-                        <a href="{{url('proceso')}}"><i class="fa fa-fw fa-arrow-right"></i> Procesos</a>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#menuProceso"><i class="fa fa-fw fa-arrow-right"></i> Procesos <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="menuProceso" class="collapse">
+                            <li>
+                                <a href="/proceso"><i class="fa fa-fw fa-edit"></i>  Procesos</a>
+                            </li>
+                            <li>
+                                <a href="/dependencia"><i class="fa fa-fw fa-edit"></i>  Dependencias</a>
+                            </li>                            
+                        </ul>
                     </li>
                     <li>
-                        <a href="{{url('usuario')}}"><i class="fa fa-fw fa-arrow-right"></i> Usuarios</a>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#menuUser"><i class="fa fa-fw fa-arrow-right"></i> Usuarios <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="menuUser" class="collapse">
+                            <li>
+                                <a href="/perfil"><i class="fa fa-fw fa-edit"></i>  Perfiles</a>
+                            </li>
+                            <li>
+                                <a href="/usuario"><i class="fa fa-fw fa-edit"></i>  Usuarios</a>
+                            </li>                            
+                        </ul> 
                     </li>
-                    <li>
-                        <a href="{{url('lineamiento')}}"><i class="fa fa-fw fa-arrow-right"></i> Lineamientos</a>
+                    <li>                        
+                        <a href="javascript:;" data-toggle="collapse" data-target="#menuLin"><i class="fa fa-fw fa-arrow-right"></i> Lineamientos <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="menuLin" class="collapse">
+                            <li>
+                                <a href="/lineamiento"><i class="fa fa-fw fa-edit"></i>  Lineamientos</a>
+                            </li>
+                            <li>
+                                <a href="/factor"><i class="fa fa-fw fa-edit"></i>  Factores</a>
+                            </li>
+                            <li>
+                                <a href="/caracteristica"><i class="fa fa-fw fa-edit"></i>  Caracteristicas</a>
+                            </li>
+                        </ul>                    
                     </li>
                     
                     <div class="logo">

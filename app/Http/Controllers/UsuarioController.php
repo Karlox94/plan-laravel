@@ -18,8 +18,8 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        $perfiles = Perfil::all();
-        return view('admin.usuario.index', compact('perfiles'));
+        $usuarios = Usuario::all();
+        return view('admin.usuario.index', compact('usuarios'));
     }
 
     /**

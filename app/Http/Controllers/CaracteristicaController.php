@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use Plan\Http\Requests;
 use Plan\Http\Controllers\Controller;
 
+use Plan\Factor;
+use Plan\Caracteristica;
+
 class CaracteristicaController extends Controller
 {
     /**
@@ -16,7 +19,9 @@ class CaracteristicaController extends Controller
      */
     public function index()
     {
-        //
+        $caracteristicas = Caracteristica::all();
+        $factores = Factor::lists('descripcion','id');
+        return view('admin.lineamiento.caracteristica.index', compact('caracteristicas','factores'));
     }
 
     /**
@@ -37,7 +42,16 @@ class CaracteristicaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $carExist = Caracteristica::where('descripcion',$request->descripcion)->first();
+        if($carExist) {    
+            return redirect('/caracteristica')->with('message', 'error');
+        } else {
+            $caracteristica = new Caracteristica;
+            $caracteristica->descripcion = $request->descripcion;
+            $caracteristica->factor_id = $request->factor_id;
+            $caracteristica->save();
+            return redirect('/caracteristica')->with('message', 'ok');
+        }
     }
 
     /**
@@ -59,7 +73,14 @@ class CaracteristicaController extends Controller
      */
     public function edit($id)
     {
-        //
+        $caracteristica = Caracteristica::where('id', $id)->first();
+        $carFactor = $caracteristica->factor->descripcion;
+        $factores = Factor::where('descripcion','<>', $carFactor)->get();
+        $afactores = array();
+        foreach ($factores as $key) {
+            $afactores[$key->id] = $key->descripcion;
+        }
+        return view('admin.lineamiento.caracteristica.editar', compact('caracteristica', 'afactores'));
     }
 
     /**
@@ -71,7 +92,11 @@ class CaracteristicaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $caracteristica = Caracteristica::find($id);
+        $caracteristica->fill($request->all());
+        $caracteristica->save();
+
+        return redirect('/caracteristica')->with('message','editado');
     }
 
     /**
@@ -82,6 +107,7 @@ class CaracteristicaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Caracteristica::destroy($id);
+        return redirect('/caracteristica')->with('message','eliminado');
     }
 }

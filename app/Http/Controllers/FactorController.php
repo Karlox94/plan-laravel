@@ -5,11 +5,11 @@ namespace Plan\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Plan\Http\Requests;
-use Plan\Http\Controllers\Controller;
 
+use Plan\Factor;
 use Plan\Lineamiento;
 
-class LineamientoController extends Controller
+class FactorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +18,9 @@ class LineamientoController extends Controller
      */
     public function index()
     {
-        $lineamientos = Lineamiento::all();
-        return view('admin.lineamiento.index', compact('lineamientos'));
+        $factores = Factor::all();
+        $lineamientos = Lineamiento::lists('descripcion','id');
+        return view('admin.lineamiento.factor.index', compact('lineamientos','factores'));
     }
 
     /**
@@ -40,14 +41,15 @@ class LineamientoController extends Controller
      */
     public function store(Request $request)
     {
-        $linlExist = Lineamiento::where('descripcion',$request->descripcion)->first();
-        if($linlExist) {    
-            return redirect('/lineamiento')->with('message', 'error');
+        $factorExist = Factor::where('descripcion',$request->descripcion)->first();
+        if($factorExist) {    
+            return redirect('/factor')->with('message', 'error');
         } else {
-            $lineamiento = new lineamiento;
-            $lineamiento->descripcion = $request->descripcion;
-            $lineamiento->save();
-            return redirect('/lineamiento')->with('message', 'ok');
+            $factor = new Factor;
+            $factor->descripcion = $request->descripcion;
+            $factor->lineamiento_id = $request->lineamiento_id;
+            $factor->save();
+            return redirect('/factor')->with('message', 'ok');
         }
     }
 
@@ -70,8 +72,14 @@ class LineamientoController extends Controller
      */
     public function edit($id)
     {
-        $lineamiento = Lineamiento::find($id);
-        return view('admin.lineamiento.editar', compact('lineamiento'));
+        $factor = Factor::where('id', $id)->first();
+        $factorLin = $factor->lineamiento->descripcion;
+        $lineamientos = Lineamiento::where('descripcion','<>', $factorLin)->get();
+        $alineamientos = array();
+        foreach ($lineamientos as $key) {
+            $alineamientos[$key->id] = $key->descripcion;
+        }
+        return view('admin.lineamiento.factor.editar', compact('factor', 'alineamientos'));
     }
 
     /**
@@ -83,11 +91,11 @@ class LineamientoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $lineamiento = Lineamiento::find($id);
-        $lineamiento->fill($request->all());
-        $lineamiento->save();
+        $factor = Factor::find($id);
+        $factor->fill($request->all());
+        $factor->save();
 
-        return redirect('/lineamiento')->with('message','editado');
+        return redirect('/factor')->with('message','editado');
     }
 
     /**
@@ -98,7 +106,7 @@ class LineamientoController extends Controller
      */
     public function destroy($id)
     {
-        Lineamiento::destroy($id);
-        return redirect('/lineamiento')->with('message','eliminado');
+        Factor::destroy($id);
+        return redirect('/factor')->with('message','eliminado');
     }
 }

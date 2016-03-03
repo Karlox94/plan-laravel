@@ -14,6 +14,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/admin', function () {
+    return view('admin.index');
+});
 
 
 /*
@@ -30,9 +33,12 @@ Route::get('/', function () {
 Route::group(['middleware' => ['web']], function () {
 	Route::resource('plan','PlanController');
 	Route::resource('caracteristica','CaracteristicaController');
-	Route::resource('lineamiento','LineamientoController');
 	Route::resource('perfil','PerfilController');
 	Route::resource('usuario','UsuarioController');
 	Route::resource('proceso','ProcesoController');
+	Route::resource('dependencia','DependenciaController');
 	Route::resource('facultad','FacultadController');
+	Route::resource('programa','ProgramaController');
+	Route::resource('lineamiento','LineamientoController');
+	Route::resource('factor','FactorController');
 });

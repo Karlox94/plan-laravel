@@ -4,86 +4,11 @@
 
 @section('contenido')
 
-
-@if (session('message') == 'ok')
-  <div class="alert alert-success alert-dismissible" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <strong>En hora buena!</strong> Registro exitoso.
-  </div>
-@elseif (session('message') == 'error')
-  <div class="alert alert-danger alert-dismissible" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <strong>Ups!</strong> El perfil ya esta registrado, intenta con otro nombre.
-  </div>
-@elseif (session('message') == 'editado')
-  <div class="alert alert-info alert-dismissible" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <strong>En hora buena!</strong> El perfil se ha modifcado correctamente.
-  </div>
-@elseif (session('message') == 'eliminado')
-  <div class="alert alert-info alert-dismissible" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <strong>En hora buena!</strong> El perfil se ha eliminado correctamente.
-  </div>
-@endif
-
+@include('admin.alert')
 <!-- Page Heading -->
 <div class="row">
-    <div class="col-lg-12">
-        <h1 class="page-header">
-            Perfiles
-        </h1>                        
-    </div>
-
-
-    {!! Form::open(['route'=>'perfil.store', 'method'=>'POST']) !!}
-      {{ csrf_field()}}
-      <div class="col-md-4 form-group">
-        {{Form::label('Rol:')}}
-        {{Form::text('rol',null,['class' => 'form-control', 'required' => 'required'])}}
-      </div>
-      <div class="col-md-2 form-group">
-        <br>
-        {{Form::submit('Crear',['class' => 'btn btn-success form-control'])}}
-      </div>
-    {!! Form::close() !!}     
-    
-    <div class="col-md-12"> 
-      <h3>Perfiles registrados</h3>
-      <table class="table table-bordered">
-          <thead>
-            <tr>
-                <td>Id</td>
-                <td>Rol</td>
-                <td>Modificar</td>
-                <td>Eliminar</td>
-            </tr>
-          </thead>
-          <tbody>
-            @foreach ($perfiles as $perfil) 
-              <tr>
-                <td>{{$perfil->id}}</td>
-                <td>{{$perfil->rol}}</td>
-                <td>
-                  {!!link_to_route('perfil.edit', $title = 'Modificar', $parameters = $perfil->id, $attributes = ['class'=>'btn btn-primary'])!!}
-                </td>
-                <td>
-                  {!! Form::open(['route'=>['perfil.destroy',$perfil->id],'method'=>'DELETE']) !!}
-                    {{ csrf_field()}}  
-                      {{Form::submit('Eliminar',['class' => 'btn btn-danger'])}}
-                  {!! Form::close() !!}
-                </td>
-              </tr>   
-            @endforeach
-          </tbody>
-      </table>
-      <hr>  
-    </div> 
-</div>
-
-<div class="row">
   <div class="col-lg-12">
-      <h1 class="page-header">
+      <h1 class="page-header" id="usuario">
           Usuarios
       </h1>                        
   </div>
@@ -93,7 +18,7 @@
   </div>
   <label class="col-md-offset-3">Buscar usuario</label>
   <div class="form-group input-group col-md-5 col-md-offset-6">    
-      <input type="email" class="form-control" placeholder="usuario@correo.unicordoba.edu.co">
+      <input type="email" class="form-control" placeholder='usuario'.@.'correo.unicordoba.edu.co'>
       <span class="input-group-btn">
         <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
       </span>

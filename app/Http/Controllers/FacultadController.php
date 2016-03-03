@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use Plan\Http\Requests;
 use Plan\Http\Controllers\Controller;
 
+use Plan\Facultad;
+use Plan\Programa;
+
 class FacultadController extends Controller
 {
     /**
@@ -16,7 +19,8 @@ class FacultadController extends Controller
      */
     public function index()
     {
-        return view('admin.facultad.index');
+        $facultades = Facultad::all();
+        return view('admin.facultad.index', compact('facultades'));
     }
 
     /**
@@ -37,7 +41,15 @@ class FacultadController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $facultadExist = Facultad::where('nombre',$request->nombre)->first();
+        if($facultadExist) {    
+            return redirect('/facultad')->with('message', 'error');
+        } else {
+            $proceso = new Facultad;
+            $proceso->nombre = $request->nombre;
+            $proceso->save();
+            return redirect('/facultad')->with('message', 'ok');
+        }
     }
 
     /**
@@ -59,7 +71,8 @@ class FacultadController extends Controller
      */
     public function edit($id)
     {
-        //
+        $facultad = Facultad::find($id);
+        return view('admin.facultad.editar', compact('facultad'));
     }
 
     /**
@@ -71,7 +84,11 @@ class FacultadController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $facultad = Facultad::find($id);
+        $facultad->fill($request->all());
+        $facultad->save();
+
+        return redirect('/facultad')->with('message','editado');
     }
 
     /**
@@ -82,6 +99,7 @@ class FacultadController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Facultad::destroy($id);
+        return redirect('/facultad')->with('message','eliminado');
     }
 }

@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use Plan\Http\Requests;
 use Plan\Http\Controllers\Controller;
 
+use Plan\Proceso;
+use Plan\Dependencia;
+
 class ProcesoController extends Controller
 {
     /**
@@ -16,7 +19,8 @@ class ProcesoController extends Controller
      */
     public function index()
     {
-        return view('admin.proceso.index');
+        $procesos = Proceso::all();                
+        return view('admin.proceso.index', compact('procesos'));
     }
 
     /**
@@ -37,7 +41,15 @@ class ProcesoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $procesoExist = Proceso::where('nombre',$request->nombre)->first();
+        if($procesoExist) {    
+            return redirect('/proceso')->with('message', 'error');
+        } else {
+            $proceso = new Proceso;
+            $proceso->nombre = $request->nombre;
+            $proceso->save();
+            return redirect('/proceso')->with('message', 'ok');
+        }
     }
 
     /**
@@ -59,7 +71,8 @@ class ProcesoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $proceso = Proceso::find($id);
+        return view('admin.proceso.editar', compact('proceso'));
     }
 
     /**
@@ -71,7 +84,11 @@ class ProcesoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $proceso = Proceso::find($id);
+        $proceso->fill($request->all());
+        $proceso->save();
+
+        return redirect('/proceso')->with('message','editado');
     }
 
     /**
@@ -82,6 +99,7 @@ class ProcesoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Proceso::destroy($id);
+        return redirect('/proceso')->with('message','eliminado');
     }
 }
