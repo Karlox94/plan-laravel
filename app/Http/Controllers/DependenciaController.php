@@ -18,7 +18,7 @@ class DependenciaController extends Controller
      */
     public function index()
     {
-        $dependencias = Dependencia::all();
+        $dependencias = Dependencia::paginate(10);
         $procesos2 = Proceso::lists('nombre','id');
                 
         return view('admin.proceso.dependencia.index', compact('procesos2','dependencias'));

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class NoConformidadMigration extends Migration
+class FalenciaMigration extends Migration
 {
     /**
      * Run the migrations.
@@ -12,16 +12,23 @@ class NoConformidadMigration extends Migration
      */
     public function up()
     {
-        Schema::create('noConformidad', function (Blueprint $table) {
+        Schema::create('falencia', function (Blueprint $table) {
             $table->increments('id');
             $table->text('descripcion');
-            $table->string('origen');
-            $table->string('tipoAccion');
             $table->text('causaRaiz');   
             $table->text('metodologia');
 
             $table->integer('plan_id')->unsigned();
             $table->foreign('plan_id')->references('id')->on('plan')->onDelete('cascade');
+
+            $table->integer('origen_id')->unsigned();
+            $table->foreign('origen_id')->references('id')->on('origen')->onDelete('cascade');
+
+            $table->integer('accion_id')->unsigned();
+            $table->foreign('accion_id')->references('id')->on('accion')->onDelete('cascade');
+
+            $table->integer('caracteristica_id')->unsigned()->nullable();
+            $table->foreign('caracteristica_id')->references('id')->on('caracteristica')->onDelete('cascade');
 
             $table->timestamps();
         });
@@ -34,6 +41,6 @@ class NoConformidadMigration extends Migration
      */
     public function down()
     {
-        Schema::drop('noConformidad');
+        Schema::drop('falencia');
     }
 }

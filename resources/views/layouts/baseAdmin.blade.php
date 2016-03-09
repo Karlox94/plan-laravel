@@ -13,6 +13,7 @@
 
     <!-- Custom CSS -->
     <link href="{{asset('css/sb-admin.css')}}" rel="stylesheet">
+    
 
     <!-- Morris Charts CSS -->
     <link href="{{asset('css/plugins/morris.css')}}" rel="stylesheet">
@@ -59,32 +60,21 @@
                         <a href="{{url('plan')}}"><i class="fa fa-fw fa-arrow-right"></i> Planes</a>
                     </li>
                     <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#menuFacultad"><i class="fa fa-fw fa-arrow-right"></i> Facultades <i class="fa fa-fw fa-caret-down"></i></a>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#menuFacultad"><i class="fa fa-fw fa-arrow-right"></i> Depdendencias Administrativas <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="menuFacultad" class="collapse">
                             <li>
-                                <a href="/facultad"><i class="fa fa-fw fa-edit"></i>  Facultades</a>
+                                <a href="/proceso"><i class="fa fa-fw fa-edit"></i>  Procesos</a>
                             </li>
                             <li>
                                 <a href="/programa"><i class="fa fa-fw fa-edit"></i>  Programas Académicos</a>
                             </li>                            
                         </ul>
-                    </li>
-                    <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#menuProceso"><i class="fa fa-fw fa-arrow-right"></i> Procesos <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="menuProceso" class="collapse">
-                            <li>
-                                <a href="/proceso"><i class="fa fa-fw fa-edit"></i>  Procesos</a>
-                            </li>
-                            <li>
-                                <a href="/dependencia"><i class="fa fa-fw fa-edit"></i>  Dependencias</a>
-                            </li>                            
-                        </ul>
-                    </li>
+                    </li>                   
                     <li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#menuUser"><i class="fa fa-fw fa-arrow-right"></i> Usuarios <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="menuUser" class="collapse">
                             <li>
-                                <a href="/perfil"><i class="fa fa-fw fa-edit"></i>  Perfiles</a>
+                                <a href="/perfil"><i class="fa fa-fw fa-edit"></i>  Roles</a>
                             </li>
                             <li>
                                 <a href="/usuario"><i class="fa fa-fw fa-edit"></i>  Usuarios</a>
@@ -134,6 +124,7 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('js/select2.js')}}"></script>
 
     <!-- Morris Charts JavaScript -->
     <script src="{{asset('js/plugins/morris/raphael.min.js')}}"></script>

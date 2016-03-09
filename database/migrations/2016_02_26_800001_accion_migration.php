@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class DependenciaMigration extends Migration
+class AccionMigration extends Migration
 {
     /**
      * Run the migrations.
@@ -12,13 +12,9 @@ class DependenciaMigration extends Migration
      */
     public function up()
     {
-        Schema::create('dependencia', function (Blueprint $table) {
+        Schema::create('accion', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nombre');
-
-            $table->integer('proceso_id')->unsigned();
-            $table->foreign('proceso_id')->references('id')->on('proceso')->onDelete('cascade');
-
+            $table->string('tipo');
             $table->timestamps();
         });
     }
@@ -30,6 +26,6 @@ class DependenciaMigration extends Migration
      */
     public function down()
     {
-        Schema::drop('dependencia');
+        Schema::drop('accion');
     }
 }

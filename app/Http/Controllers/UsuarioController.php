@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Plan\Http\Requests;
 use Plan\Http\Controllers\Controller;
 use Plan\Usuario;
-use Plan\Perfil;
+use Plan\Rol;
 
 class UsuarioController extends Controller
 {
@@ -16,10 +16,18 @@ class UsuarioController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $usuarios = Usuario::all();
-        return view('admin.usuario.index', compact('usuarios'));
+    public function index(Request $request)
+    {        
+        $usuarios = Usuario::email($request->get('email'))->orderBy('nombre', 'asc')->paginate(10);
+        $roles = Rol::lists('nombre','id');
+        $cantidad = count($usuarios);
+        if ($cantidad == 0) {
+            $usuarios = Usuario::orderBy('nombre', 'asc')->paginate(10);
+            return view('admin.usuario.index', compact('usuarios','roles','cantidad'));
+        } else {
+            return view('admin.usuario.index', compact('usuarios','roles','cantidad'));
+        }
+    
     }
 
     /**
@@ -40,7 +48,24 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
-        return 'aqui se creara un usuario';
+        $userExist = Usuario::where('email',$request->email)->first();
+        if($userExist) {    
+            return redirect('/usuario')->with('message', 'error');
+        } else {
+            $usuario = new Usuario;
+            $usuario->nombre = $request->nombre;
+            $usuario->apellido = $request->apellido;
+            $usuario->email = $request->email;
+            $usuario->dependencia = $request->dependencia;
+            $usuario->cargo = $request->cargo;            
+            $usuario->save();
+
+            $lastUser = Usuario::where('email',$request->email)->first();
+            $idUser = Usuario::find($lastUser->id);
+            $idUser->rols()->attach($request->rol_id);
+
+            return redirect('/usuario')->with('message', 'ok');
+        } 
     }
 
     /**
@@ -62,7 +87,14 @@ class UsuarioController extends Controller
      */
     public function edit($id)
     {
-        //
+        $usuario = Usuario::where('id', $id)->first();
+        $rol = $usuario->rols->first()->nombre;
+        $roles = Rol::where('nombre','<>', $rol)->get();
+        $aroles = array();
+        foreach ($roles as $key) {
+            $aroles[$key->id] = $key->nombre;
+        }
+        return view('admin.usuario.editar', compact('usuario', 'aroles'));
     }
 
     /**
@@ -74,7 +106,12 @@ class UsuarioController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $usuario = usuario::find($id);
+        $usuario->fill($request->all());
+    
+        $usuario->save();
+
+        return redirect('/usuario')->with('message','editado');
     }
 
     /**
@@ -85,6 +122,7 @@ class UsuarioController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Usuario::destroy($id);
+        return redirect('/usuario')->with('message','eliminado');
     }
 }

@@ -18,7 +18,7 @@ class FactorController extends Controller
      */
     public function index()
     {
-        $factores = Factor::all();
+        $factores = Factor::paginate(10);
         $lineamientos = Lineamiento::lists('descripcion','id');
         return view('admin.lineamiento.factor.index', compact('lineamientos','factores'));
     }

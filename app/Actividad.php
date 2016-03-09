@@ -8,16 +8,11 @@ class Actividad extends Model
 {
     protected $table = 'actividad';
     protected $fillable = ['descripcion', 'meta', 'indicador', 'fechaInicio', 'fechFinal',
-        	'responsable', 'porcentaje', 'estadoAccion', 'observacion', 'noConformidad_id',
-        	'debilidad_id', 'usuario_id'];
+        	'falencia_id', 'usuario_id'];
 
-    public function noConformidad()
+    public function falencia()
     {
-        return $this->belongsTo('Plan\NoConformidad');
-    }
-    public function debilidad()
-    {
-        return $this->belongsTo('Plan\Debilidad');
+        return $this->belongsTo('Plan\Falencia');
     }
     public function recurso()
     {

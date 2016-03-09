@@ -4,6 +4,8 @@
 
 @section('contenido')
 
+<link href="{{asset('css/select2.css')}}" rel="stylesheet" type="text/css">
+
 @include('admin.alert')
 
 <div class="row">
@@ -19,10 +21,14 @@
         {{Form::text('nombre',null,['class' => 'form-control', 'required' => 'required'])}}
       </div>
       <div class="col-md-4 form-group">   
-        {{Form::label('Facultad a la que pertenece:')}}   
-        {{Form::select('facultad', $facultades2, null, ['class' => 'form-control','placeholder' => 'Selecciones una opción', 'required' => 'required'])}}
+        {{Form::label('Nombre lider del proceso:')}}   
+        {{Form::select('lider_id', $usuarios, null, ['id' => 'lideres', 'class' => 'form-control ', 'placeholder' => '', 'required' => 'required'])}}
       </div>
-      <div class="col-md-2 form-group">
+      <div class="col-md-4 form-group">   
+        {{Form::label('Nombre auditor del proceso:')}}   
+        {{Form::select('auditor_id', $usuarios, null, ['id' => 'auditores', 'class' => 'form-control','placeholder' => 'Seleccione una opción', 'required' => 'required'])}}
+      </div>
+      <div class="col-md-2 col-md-offset-10 form-group">
         <br>
         {{Form::submit('Crear',['class' => 'btn btn-success form-control'])}}
       </div>
@@ -35,7 +41,8 @@
             <tr>
                 <td>Id</td>
                 <td>Nombre Programa</td>
-                <td>Facultad a la que pertenece</td>
+                <td>Lider</td>
+                <td>Auditor</td>
                 <td>Modificar</td>
                 <td>Eliminar</td>
             </tr>
@@ -45,7 +52,8 @@
               <tr>
                 <td>{{$programa->id}}</td>
                 <td>{{$programa->nombre}}</td>
-                <td>{{$programa->facultad->nombre}}</td>
+                <td>{{$programa->lider->nombre}}</td>
+                <td>{{$programa->auditor->nombre}}</td>
                 <td>
                   {!!link_to_route('programa.edit', $title = 'Modificar', $parameters = $programa->id, $attributes = ['class'=>'btn btn-primary'])!!}
                 </td>
@@ -62,5 +70,19 @@
       <hr>  
     </div> 
 </div>
+
+<script src="{{asset('js/jquery.js')}}"></script>
+<script src="{{asset('js/select2full.js')}}"></script>
+<script src="{{asset('js/es.js')}}"></script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("#lideres,#auditores").select2({
+      placeholder: 'Nombre'
+    });
+  });
+</script>
+
+<center>{{$programas->render()}}</center>
 
 @stop

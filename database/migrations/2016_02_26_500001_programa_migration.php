@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UsuarioMigration extends Migration
+class ProgramaMigration extends Migration
 {
     /**
      * Run the migrations.
@@ -12,15 +12,15 @@ class UsuarioMigration extends Migration
      */
     public function up()
     {
-        Schema::create('usuario', function (Blueprint $table) {
+        Schema::create('programa', function (Blueprint $table) {
             $table->increments('id');
-            $table->biginteger('cedula')->unique();;
             $table->string('nombre');
-            $table->string('apellido');
-            $table->string('email')->unique();
 
-            $table->integer('perfil_id')->unsigned();
-            $table->foreign('perfil_id')->references('id')->on('perfil')->onDelete('cascade');
+            $table->integer('lider_id')->unsigned();
+            $table->foreign('lider_id')->references('id')->on('usuario')->onDelete('cascade');
+
+            $table->integer('auditor_id')->unsigned();
+            $table->foreign('auditor_id')->references('id')->on('usuario')->onDelete('cascade');
 
             $table->timestamps();
         });
@@ -33,6 +33,6 @@ class UsuarioMigration extends Migration
      */
     public function down()
     {
-        Schema::drop('usuario');
+        Schema::drop('programa');
     }
 }

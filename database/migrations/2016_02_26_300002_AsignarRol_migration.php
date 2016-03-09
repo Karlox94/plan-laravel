@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ProgramaUsuarioMigration extends Migration
+class AsignarRolMigration extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,11 @@ class ProgramaUsuarioMigration extends Migration
      */
     public function up()
     {
-        Schema::create('programa_usuario', function (Blueprint $table) {
+        Schema::create('rol_usuario', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->integer('programa_id')->unsigned();
-            $table->foreign('programa_id')->references('id')->on('programa')->onDelete('cascade');
+            $table->integer('rol_id')->unsigned();
+            $table->foreign('rol_id')->references('id')->on('rol')->onDelete('cascade');
 
             $table->integer('usuario_id')->unsigned();
             $table->foreign('usuario_id')->references('id')->on('usuario')->onDelete('cascade');
@@ -32,6 +32,6 @@ class ProgramaUsuarioMigration extends Migration
      */
     public function down()
     {
-        Schema::drop('proceso_usuario');
+        Schema::drop('asignarRol');
     }
 }

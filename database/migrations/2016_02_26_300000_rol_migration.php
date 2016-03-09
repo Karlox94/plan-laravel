@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ProgramaMigration extends Migration
+class RolMigration extends Migration
 {
     /**
      * Run the migrations.
@@ -12,13 +12,9 @@ class ProgramaMigration extends Migration
      */
     public function up()
     {
-        Schema::create('programa', function (Blueprint $table) {
+        Schema::create('rol', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre');
-
-            $table->integer('facultad_id')->unsigned();
-            $table->foreign('facultad_id')->references('id')->on('facultad')->onDelete('cascade');
-
             $table->timestamps();
         });
     }
@@ -30,6 +26,6 @@ class ProgramaMigration extends Migration
      */
     public function down()
     {
-        Schema::drop('programa');
+        Schema::drop('perfil');
     }
 }

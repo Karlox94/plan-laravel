@@ -63,4 +63,6 @@
 
 </div>
 
+<center>{{$lineamientos->render()}}</center>
+
 @stop

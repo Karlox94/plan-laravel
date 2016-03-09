@@ -63,4 +63,6 @@
     </div> 
 </div>
 
+<center>{{$factores->render()}}</center>
+
 @stop

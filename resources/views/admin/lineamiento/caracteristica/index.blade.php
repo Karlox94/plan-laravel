@@ -63,4 +63,6 @@
     </div> 
 </div>
 
+<center>{{$caracteristicas->render()}}</center>
+
 @stop

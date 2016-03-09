@@ -19,19 +19,12 @@ class ActividadMigration extends Migration
             $table->string('indicador');
             $table->date('fechaInicio');
             $table->date('fechaFinal');
-            $table->text('evidencia');
-            $table->integer('porcentaje');
-            $table->string('estadoAccion');
-            $table->text('observacion');
 
             $table->integer('usuario_id')->unsigned();
             $table->foreign('usuario_id')->references('id')->on('usuario')->onDelete('cascade');
 
-            $table->integer('noConformidad_id')->unsigned()->nullable();
-            $table->foreign('noConformidad_id')->references('id')->on('noConformidad')->onDelete('cascade');
-
-            $table->integer('debilidad_id')->unsigned()->nullable();
-            $table->foreign('debilidad_id')->references('id')->on('debilidad')->onDelete('cascade');
+            $table->integer('falencia_id')->unsigned()->nullable();
+            $table->foreign('falencia_id')->references('id')->on('falencia')->onDelete('cascade');
 
             $table->timestamps();
         });

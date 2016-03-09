@@ -2,6 +2,8 @@
 
 @section('titulo','Editar Programa Académico')
 
+<link href="{{asset('css/select2.css')}}" rel="stylesheet" type="text/css">
+
 @section('contenido')
 
 <div class="row">
@@ -20,13 +22,17 @@
           {{Form::text('id',null,['class' => 'form-control', 'disabled' => 'disabled'])}}
         </div>
         <div class="col-md-12 form-group">
-          {{Form::label('Nombre del programa:')}}
+          {{Form::label('Nombre:')}}
           {{Form::text('nombre',null,['class' => 'form-control', 'required' => 'required'])}}
         </div>
-        <div class="col-md-12 form-group">
-          {{Form::label('Nombre de la facultad:')}}
-          {{Form::select('facultad_id', $afacultades,null, ['class' => 'form-control', 'placeholder' => $programa->facultad->nombre])}}
-        </div>
+        <div class="col-md-12 form-group">   
+        {{Form::label('Nombre lider del proceso:')}}   
+        {{Form::select('lider_id', $vlideres, null, ['id' => 'lideres', 'class' => 'form-control ', 'placeholder' => '', 'required' => 'required'])}}
+      </div>
+      <div class="col-md-12 form-group">   
+        {{Form::label('Nombre auditor del proceso:')}}   
+        {{Form::select('auditor_id', $vauditores, null, ['id' => 'auditores', 'class' => 'form-control','placeholder' => '', 'required' => 'required'])}}
+      </div>
         <div class="col-md-6 form-group">
           <br>
           {{Form::submit('Modificar',['class' => 'btn btn-primary form-control'])}}
@@ -39,5 +45,16 @@
     </div>
   </div>
 </div>
+
+<script src="{{asset('js/jquery.js')}}"></script>
+<script src="{{asset('js/select2full.js')}}"></script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("#lideres,#auditores").select2({
+      placeholder: 'Seleccione una opción'
+    });
+  });
+</script>
 
 @stop

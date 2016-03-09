@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 
 use Plan\Http\Requests;
 
-use Plan\Facultad;
 use Plan\Programa;
+use Plan\Usuario;
 
 class ProgramaController extends Controller
 {
@@ -18,9 +18,9 @@ class ProgramaController extends Controller
      */
     public function index()
     {
-        $programas = Programa::all();
-        $facultades2 = Facultad::lists('nombre','id');
-        return view('admin.facultad.programa.index', compact('facultades2','programas'));
+        $programas = Programa::paginate(10); 
+        $usuarios = Usuario::lists('nombre','id');
+        return view('admin.facultad.programa.index', compact('programas','usuarios'));
     }
 
     /**
@@ -47,7 +47,8 @@ class ProgramaController extends Controller
         } else {
             $programa = new Programa;
             $programa->nombre = $request->nombre;
-            $programa->facultad_id = $request->facultad;
+            $programa->lider_id = $request->lider_id;
+            $programa->auditor_id = $request->auditor_id;
             $programa->save();
             return redirect('/programa')->with('message', 'ok');
         }
@@ -73,13 +74,19 @@ class ProgramaController extends Controller
     public function edit($id)
     {
         $programa = Programa::where('id', $id)->first();
-        $facultadprograma = $programa->facultad->nombre;
-        $facultades = Facultad::where('nombre','<>', $facultadprograma)->get();
-        $afacultades = array();
-        foreach ($facultades as $key) {
-            $afacultades[$key->id] = $key->nombre;
+        $lider = $programa->lider->id;
+        $auditor = $programa->auditor->id;
+        $lideres = Usuario::where('id','<>', $id)->get();
+        $auditores = Usuario::where('id','<>', $id)->get();
+        $vlideres = array();
+        $vauditores = array();
+        foreach ($lideres as $key) {
+            $vlideres[$key->id] = $key->nombre;
         }
-        return view('admin.facultad.programa.editar', compact('programa', 'afacultades'));
+        foreach ($auditores as $key) {
+            $vauditores[$key->id] = $key->nombre;
+        }
+        return view('admin.facultad.programa.editar', compact('programa','vlideres','vauditores'));
     }
 
     /**

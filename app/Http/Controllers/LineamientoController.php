@@ -18,7 +18,7 @@ class LineamientoController extends Controller
      */
     public function index()
     {
-        $lineamientos = Lineamiento::all();
+        $lineamientos = Lineamiento::paginate(10);
         return view('admin.lineamiento.index', compact('lineamientos'));
     }
 

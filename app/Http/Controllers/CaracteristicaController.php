@@ -19,7 +19,7 @@ class CaracteristicaController extends Controller
      */
     public function index()
     {
-        $caracteristicas = Caracteristica::all();
+        $caracteristicas = Caracteristica::paginate(10);
         $factores = Factor::lists('descripcion','id');
         return view('admin.lineamiento.caracteristica.index', compact('caracteristicas','factores'));
     }

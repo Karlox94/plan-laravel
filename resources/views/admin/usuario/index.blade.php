@@ -12,16 +12,19 @@
           Usuarios
       </h1>                        
   </div>
-  <div class="form-group col-md-3">
-      <label>Crear usuario</label>                                   
+
+  <div class="col-md-2">
+      <label>Crear Usuario:</label>                                   
       <a href="javascript:;" class="forget btn btn-success form-control" data-toggle="modal" data-target=".forget-modal"><span class="glyphicon glyphicon-plus"></span> Nuevo</a>
   </div>
-  <label class="col-md-offset-3">Buscar usuario</label>
-  <div class="form-group input-group col-md-5 col-md-offset-6">    
-      <input type="email" class="form-control" placeholder='usuario'.@.'correo.unicordoba.edu.co'>
-      <span class="input-group-btn">
-        <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
-      </span>
+  <div class="col-md-5 pull-right">    
+    <label>Buscar Usuario:</label>
+    {!! Form::open(['route'=>'usuario.index', 'method'=>'GET', 'class' => 'input-group', 'role' => 'search']) !!}   
+        {{Form::email('email',null,['class' => 'form-control', 'required' => 'required', 'placeholder' => 'usuario@correo.unicordoba.edu.co'])}}      
+        <span class="input-group-btn">
+          {{Form::submit('Buscar',['class' => 'btn btn-default'])}}
+        </span>
+    {!! Form::close() !!}  
   </div>
 </div>
 <!-- /.row -->
@@ -38,55 +41,38 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-4 form-group">
-                        <label for="cedula">Cedula</label>
-                        <input type="text" name="cedula" class="form-control" id="cedula" placeholder="Cedula">
-                    </div> 
-                    <div class="col-md-4 form-group">
-                        <label for="nombre">Nombres</label>
-                        <input type="text" name="nombre" class="form-control" id="nombre" placeholder="Nombres">
-                    </div>  
-                    <div class="col-md-4 form-group">                      
-                        <label for="apellido">Apellidos</label>
-                        <input type="text" name="apellido" class="form-control" id="apellido" placeholder="Apellidos">  
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label for="email">Email</label>
-                        <input type="email" name="email" class="form-control" id="email" placeholder="ejemplo@correo.unicordoba.edu.co">
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label for="cargo">Cargo</label>
-                        <input type="text" name="cargo" class="form-control" id="cargo" placeholder="Cargo">
-                    </div>
-                    <div class="col-md-4 form-group">                   
-                        <label for="pertenece">Pertenece a</label>                                  
-                        <select class="form-control" id="pertenece" name="pertenece">
-                            <option selected="selected" value="">Seleccione una opción</option>
-                            <option value="">Falcultad</option>
-                            <option value="">Proceso</option>
-                        </select>
-                    </div>
-                    <div class="col-md-4 form-group">                   
-                        <label for="depopro">Dependencia o Programa Académico</label>
-                        <select class="form-control" id="perfil" name="perfil">
-                            <option selected="selected" value="">Seleccione una opción</option>
-                        </select>
-                    </div>                    
-                    <div class="col-md-4 form-group">                   
-                        <label for="perfil">Perfil</label>                                  
-                        <select class="form-control" id="perfil" name="perfil">
-                            <option selected="selected" value="">Seleccione una opción</option>
-                            <option value="">Administrador</option>
-                            <option value="">Funcionario</option>
-                            <option value="">Evaluador</option>
-                            <option value="">Jefe</option>
-                        </select>
-                    </div>                                     
+                    {!! Form::open(['route'=>'usuario.store', 'method'=>'POST']) !!}
+                      {{ csrf_field()}}
+                      <div class="col-md-4 form-group">
+                        {{Form::label('Nombres:')}}
+                        {{Form::text('nombre',null,['class' => 'form-control', 'required' => 'required'])}}
+                      </div>
+                      <div class="col-md-4 form-group">
+                        {{Form::label('Apellidos:')}}
+                        {{Form::text('apellido',null,['class' => 'form-control', 'required' => 'required'])}}
+                      </div>
+                      <div class="col-md-4 form-group">
+                        {{Form::label('Email:')}}
+                        {{Form::email('email',null,['class' => 'form-control', 'required' => 'required'])}}
+                      </div>
+                      <div class="col-md-4 form-group">
+                        {{Form::label('Dependencia o Programa:')}}
+                        {{Form::text('dependencia',null,['class' => 'form-control', 'required' => 'required'])}}
+                      </div>
+                      <div class="col-md-4 form-group">
+                        {{Form::label('Cargo:')}}
+                        {{Form::text('cargo',null,['class' => 'form-control', 'required' => 'required'])}}
+                      </div>
+                      <div class="col-md-4 form-group">
+                        {{Form::label('Rol:')}}
+                        {{Form::select('rol_id', $roles, null, ['class' => 'form-control','placeholder' => 'Selecciones una opción', 'required' => 'required'])}}
+                      </div>                                                       
                 </div>                                
             </div>                    
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-success">Crear</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>               
+                  {{Form::submit('Crear',['class' => 'btn btn-success'])}}
+                {!! Form::close() !!}  
             </div>
         </div> <!-- /.modal-content -->
     </div> <!-- /.modal-dialog -->
@@ -98,9 +84,9 @@
         <thead>
           <tr>
               <td>Id</td>
-              <td>Cedula</td>
               <td>Nombres y Apellidos</td>
               <td>Email</td>
+              <td>Dependencia o Programa</td>
               <td>Cargo</td>
               <td>Perfil</td>
               <td>Modificar</td>
@@ -108,14 +94,36 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td colspan="8"><center><h1 class="text-muted">No hay usuarios aún</h1></center></td>
-          </tr>
+          @foreach ($usuarios  as $usuario)
+              <tr>
+                <td>{{$usuario->id}}</td>
+                <td>{{$usuario->nombre}} {{$usuario->apellido}} </td>
+                <td>{{$usuario->email}}</td>
+                <td>{{$usuario->dependencia}}</td>
+                <td>{{$usuario->cargo}}</td>
+                <td>{{$usuario->rols->first()->nombre}}</td>
+                <td>
+                  {!!link_to_route('usuario.edit', $title = 'Modificar', $parameters = $usuario->id, $attributes = ['class'=>'btn btn-primary'])!!}
+                </td>
+                <td>
+                  {!! Form::open(['route'=>['usuario.destroy',$usuario->id],'method'=>'DELETE']) !!}
+                    {{ csrf_field()}}  
+                      {{Form::submit('Eliminar',['class' => 'btn btn-danger'])}}
+                  {!! Form::close() !!}
+                </td>
+              </tr>              
+            @endforeach            
+            @if($cantidad == 0)
+              <script type="text/javascript">  
+                  alert('El usuario no existe en la base de datos');
+              </script>
+            @endif
         </tbody>
     </table>
     <hr>  
   </div>  
 </div>
-
+<center>{{$usuarios->render()}}</center>
 
 @stop
+

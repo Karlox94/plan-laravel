@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class PerfilMigration extends Migration
+class OrigenMigration extends Migration
 {
     /**
      * Run the migrations.
@@ -12,9 +12,9 @@ class PerfilMigration extends Migration
      */
     public function up()
     {
-        Schema::create('perfil', function (Blueprint $table) {
+        Schema::create('origen', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('rol');
+            $table->string('tipo');            
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ class PerfilMigration extends Migration
      */
     public function down()
     {
-        Schema::drop('perfil');
+        Schema::drop('origen');
     }
 }

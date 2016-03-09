@@ -7,18 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 class Plan extends Model
 {
     protected $table = 'plan';
-    protected $fillable = ['numero', 'fechaAnalisis', 'añoEvaluacion', 'tipo', 'usuario_id'];
+    protected $fillable = ['numero', 'fechaAnalisis', 'añoEvaluacion', 'tipo', 'programa_id', 'proceso_id'];
 
-    public function debilidad()
+    public function falencia()
     {
-        return $this->hasMany('Plan\Delidad');
+        return $this->hasMany('Plan\Falencia');
     }
-    public function noConformidad()
+    public function programa()
     {
-        return $this->hasMany('Plan\NoConformidad');
+        return $this->belongsTo('Plan\Programa');
     }
-    public function usuario()
+    public function proceso()
     {
-        return $this->belongsTo('Plan\Usuario');
+        return $this->belongsTo('Plan\Proceso');
     }
+}
 }

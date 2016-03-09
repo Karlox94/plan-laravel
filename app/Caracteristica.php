@@ -13,8 +13,8 @@ class Caracteristica extends Model
     {
         return $this->belongsTo('Plan\Factor');
     }
-    public function debilidades()
+    public function falencia()
     {
-        return $this->hasMany('Plan\Debilidad');
+        return $this->hasMany('Plan\Falencia');
     }
 }

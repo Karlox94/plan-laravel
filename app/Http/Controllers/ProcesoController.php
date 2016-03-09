@@ -8,7 +8,7 @@ use Plan\Http\Requests;
 use Plan\Http\Controllers\Controller;
 
 use Plan\Proceso;
-use Plan\Dependencia;
+use Plan\Usuario;
 
 class ProcesoController extends Controller
 {
@@ -19,8 +19,9 @@ class ProcesoController extends Controller
      */
     public function index()
     {
-        $procesos = Proceso::all();                
-        return view('admin.proceso.index', compact('procesos'));
+        $procesos = Proceso::paginate(10);  
+        $usuarios = Usuario::lists('nombre','id');
+        return view('admin.proceso.index', compact('procesos','usuarios'));
     }
 
     /**
@@ -47,6 +48,8 @@ class ProcesoController extends Controller
         } else {
             $proceso = new Proceso;
             $proceso->nombre = $request->nombre;
+            $proceso->lider_id = $request->lider_id;
+            $proceso->auditor_id = $request->auditor_id;
             $proceso->save();
             return redirect('/proceso')->with('message', 'ok');
         }
@@ -71,8 +74,20 @@ class ProcesoController extends Controller
      */
     public function edit($id)
     {
-        $proceso = Proceso::find($id);
-        return view('admin.proceso.editar', compact('proceso'));
+        $proceso = Proceso::where('id', $id)->first();
+        $lider = $proceso->lider->id;
+        $auditor = $proceso->auditor->id;
+        $lideres = Usuario::where('id','<>', $id)->get();
+        $auditores = Usuario::where('id','<>', $id)->get();
+        $vlideres = array();
+        $vauditores = array();
+        foreach ($lideres as $key) {
+            $vlideres[$key->id] = $key->nombre;
+        }
+        foreach ($auditores as $key) {
+            $vauditores[$key->id] = $key->nombre;
+        }
+        return view('admin.proceso.editar', compact('proceso','vlideres','vauditores'));
     }
 
     /**

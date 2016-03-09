@@ -7,14 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 class Programa extends Model
 {
     protected $table = 'programa';
-    protected $fillable = ['nombre', 'facultad_id'];
+    protected $fillable = ['nombre', 'lider_id', 'auditor_id'];
 
-    public function facultad()
+    public function plan()
     {
-        return $this->belongsTo('Plan\Facultad');
+        return $this->hasMany('Plan\Plan');
     }
-    public function usuario()
+    public function lider()
     {
-        return $this->belongsToMany('Plan\Usuario');
+        return $this->belongsTo('Plan\Usuario');
+    }
+    public function auditor()
+    {
+        return $this->belongsTo('Plan\Usuario');
     }
 }

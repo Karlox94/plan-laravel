@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use Plan\Http\Requests;
 
-use Plan\Perfil;
+use Plan\Rol;
 
 
 class PerfilController extends Controller
@@ -18,7 +18,7 @@ class PerfilController extends Controller
      */
     public function index()
     {
-        $perfiles = Perfil::all();
+        $perfiles = Rol::paginate(10);
         return view('admin.perfil.index', compact('perfiles'));
     }
 
@@ -40,12 +40,12 @@ class PerfilController extends Controller
      */
     public function store(Request $request)
     {
-        $perfilExist = Perfil::where('rol',$request->rol)->first();
+        $perfilExist = Rol::where('nombre',$request->nombre)->first();
         if($perfilExist) {    
             return redirect('/perfil')->with('message', 'error');
         } else {
-            $perfil = new Perfil;
-            $perfil->rol = $request->rol;
+            $perfil = new Rol;
+            $perfil->nombre = $request->nombre;
             $perfil->save();
             return redirect('/perfil')->with('message', 'ok');
         }          
@@ -70,7 +70,7 @@ class PerfilController extends Controller
      */
     public function edit($id)
     {
-        $perfil = Perfil::find($id);
+        $perfil = Rol::find($id);
         return view('admin.perfil.editar', compact('perfil'));
     }
 
@@ -83,7 +83,7 @@ class PerfilController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $perfil = Perfil::find($id);
+        $perfil = Rol::find($id);
         $perfil->fill($request->all());
         $perfil->save();
 
@@ -98,7 +98,7 @@ class PerfilController extends Controller
      */
     public function destroy($id)
     {
-        Perfil::destroy($id);
+        Rol::destroy($id);
         return redirect('/perfil')->with('message','eliminado');
     }
 }

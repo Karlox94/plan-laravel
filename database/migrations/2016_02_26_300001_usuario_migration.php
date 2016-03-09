@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class FacultadMigration extends Migration
+class UsuarioMigration extends Migration
 {
     /**
      * Run the migrations.
@@ -12,9 +12,14 @@ class FacultadMigration extends Migration
      */
     public function up()
     {
-        Schema::create('facultad', function (Blueprint $table) {
+        Schema::create('usuario', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre');
+            $table->string('apellido');
+            $table->string('email')->unique();
+            $table->string('cargo');
+            $table->string('dependencia');
+
             $table->timestamps();
         });
     }
@@ -26,6 +31,6 @@ class FacultadMigration extends Migration
      */
     public function down()
     {
-        Schema::drop('facultad');
+        Schema::drop('usuario');
     }
 }

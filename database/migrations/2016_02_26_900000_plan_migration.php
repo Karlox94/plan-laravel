@@ -17,10 +17,11 @@ class PlanMigration extends Migration
             $table->integer('numero');
             $table->date('fechaAnalisis');
             $table->integer('añoEvaluacion');
-            $table->string('tipo');
 
-            $table->integer('usuario_id')->unsigned();
-            $table->foreign('usuario_id')->references('id')->on('usuario')->onDelete('cascade');
+            $table->integer('programa_id')->unsigned()->nulleable();
+            $table->foreign('programa_id')->references('id')->on('programa')->onDelete('cascade');
+            $table->integer('proceso_id')->unsigned()->nulleable();
+            $table->foreign('proceso_id')->references('id')->on('proceso')->onDelete('cascade');
 
             $table->timestamps();
         });

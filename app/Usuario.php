@@ -7,26 +7,36 @@ use Illuminate\Database\Eloquent\Model;
 class Usuario extends Model
 {
     protected $table = 'usuario';
-    protected $fillable = ['cedula', 'nombre', 'apellido', 'email'];
+    protected $fillable = ['nombre', 'apellido', 'email', 'cargo','dependencia'];
 
-    public function plan()
+    public function liderProceso()
     {
-        return $this->hasMany('Plan\Plan');
+        return $this->hasMany('Plan\Proceso');
     }
-    public function correccion()
+    public function auditorProceso()
     {
-        return $this->hasMany('Plan\Correccion');
+        return $this->hasMany('Plan\Proceso');
+    }
+    public function liderPrograma()
+    {
+        return $this->hasMany('Plan\Programa');
+    }
+    public function auditorPrograma()
+    {
+        return $this->hasMany('Plan\Programa');
     }
     public function actividad()
     {
         return $this->hasMany('Plan\Actividad');
-    }
-    public function dependencia()
+    }    
+    public function rols()
     {
-        return $this->belongsToMany('Plan\Dependencia');
+        return $this->belongsToMany('Plan\Rol', 'rol_usuario');
     }
-    public function programa()
+    public function scopeEmail($query, $email)
     {
-        return $this->belongsToMany('Plan\Programa');
+        if (trim($email) != '') {
+            $query->where('email',$email);            
+        }
     }
 }
