@@ -8,6 +8,7 @@ use Plan\Http\Requests;
 use Plan\Http\Controllers\Controller;
 use Plan\Usuario;
 use Plan\Rol;
+use Plan\RolUsuario;
 
 class UsuarioController extends Controller
 {
@@ -106,10 +107,15 @@ class UsuarioController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $usuario = usuario::find($id);
-        $usuario->fill($request->all());
-    
+        $usuario = Usuario::find($id);
+        $usuario->fill($request->all());    
         $usuario->save();
+
+        $rolId = $usuario->rols()->first()->id;
+        $rolusuario = RolUsuario::where('rol_id',$rolId)->where('usuario_id',$id)->first();
+
+        $rolusuario->rol_id = $request->rol_id;
+        $rolusuario->update();
 
         return redirect('/usuario')->with('message','editado');
     }
