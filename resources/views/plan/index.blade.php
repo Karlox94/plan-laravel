@@ -25,14 +25,16 @@
         <span class="glyphicon glyphicon-plus"></span> Crear
       </a>      
     </div>
-    <label class="col-md-offset-2">Buscar</label>
-    <div class="form-group input-group col-md-3 col-md-offset-8">    
-        <input type="text" class="form-control" placeholder="Numero de plan">
-        <span class="input-group-btn">
-          <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
-        </span>       
+    <div class="col-md-4 pull-right">
+      <label>Buscar</label>
+      <div class="form-group input-group">    
+          <input type="text" class="form-control" placeholder="Numero de plan">
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+          </span>       
+      </div>
     </div>
-    <div class="col-md-3 col-md-offset-8">      
+    <div class="col-md-4 col-md-offset-8">      
       <label class="radio-inline">
         <input type="radio" id="proceso" value="proceso" name="tipoPlan"> Proceso        
       </label>
